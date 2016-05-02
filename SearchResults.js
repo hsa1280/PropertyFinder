@@ -1,6 +1,7 @@
 'use strict';
 
 let React = require('react-native');
+let PropertyView = require('./PropertyView');
 let {
   StyleSheet,
   Image,
@@ -48,6 +49,16 @@ class SearchResults extends Component {
     this.state = {
       dataSource: dataSource.cloneWithRows(this.props.listings)
     };
+  }
+
+  rowPressed(propertyGuid) {
+      let property = this.props.listings.filter(prop => prop.guid === propertyGuid)[0];
+
+      this.props.navigator.push({
+        title: 'Property',
+        component: PropertyView,
+        passProps: {property: property}
+      });
   }
 
   renderRow(rowData, sectionID, rowID) {
